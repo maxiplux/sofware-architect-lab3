@@ -7,11 +7,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 public class ProductController {
 	@Autowired
 	private ProductCatalogService productCatalogService;
+
+	@GetMapping("/product/")
+	public ResponseEntity<?> getProduct() {
+		return new ResponseEntity<List<Product>>(this.productCatalogService.getAll(), HttpStatus.OK);
+
+	}
 
 	@GetMapping("/product/{productnumber}")
 	public ResponseEntity<?> getProduct(@PathVariable String productnumber) {

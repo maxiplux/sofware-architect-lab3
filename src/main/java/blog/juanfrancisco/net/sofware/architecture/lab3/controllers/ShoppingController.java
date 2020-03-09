@@ -24,6 +24,9 @@ public class ShoppingController {
 
 	@PostMapping(value = "/cart/{cartId}/{productnumber}/{quantity}")
 	public ResponseEntity<?> addToCart(@PathVariable String cartId, @PathVariable String productnumber, @PathVariable int quantity) {
+		// if you are checking it , sorry this is a homework I dont like this lines, but are instructions
+		// i am writing it , because I like upload  each line of code to internet
+		// sorry look at for other projects about spring in this repository
 		shoppingService.addToCart(cartId, productnumber, quantity);
 		return new ResponseEntity<ShoppingCart>(HttpStatus.OK);
 	}

@@ -23,20 +23,30 @@ public class ShoppingServiceImpl implements ShoppingService {
 		Optional<Product> product = productRepository.findById(productnumber);
 
 		Optional<ShoppingCart> cartOptional = shoppingCartRepository.findById(cartId);
-		cartOptional.ifPresent(cart -> {
+		if (cartOptional.isPresent()) {
+			cartOptional.ifPresent(cart -> {
 
 
+				cart.addToCart(product.get(), quantity);
+
+				shoppingCartRepository.save(cart);
+
+			});
+		} else {
+			ShoppingCart cart = new ShoppingCart();
+			cart.setShoppingId(cartId);
 			cart.addToCart(product.get(), quantity);
-
 			shoppingCartRepository.save(cart);
-			return;
-		});
+
+		}
 
 
-		ShoppingCart cart = new ShoppingCart();
-		cart.setShoppingId(cartId);
-		cart.addToCart(product.get(), quantity);
-		shoppingCartRepository.save(cart);
+	}
+
+	@Override
+	public void checkOut(String cartId) {
+
+		Optional<ShoppingCart> cart = shoppingCartRepository.findById(cartId);
 
 	}
 

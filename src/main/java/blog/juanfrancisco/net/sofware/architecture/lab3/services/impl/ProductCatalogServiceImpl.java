@@ -7,6 +7,7 @@ import blog.juanfrancisco.net.sofware.architecture.lab3.services.ProductCatalogS
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,13 +30,18 @@ public class ProductCatalogServiceImpl implements ProductCatalogService {
 			return null;
 	}
 
-	public void setStock(String productnumber, int quantity, String locationcode) {
-		Optional<Product> result = productRepository.findById(productnumber);
-		if (result.isPresent()) {
-			Product product = result.get();
-			Stock stock = new Stock(quantity, locationcode);
-			product.setStock(stock);
-			productRepository.save(product);
-		}
-	}
+    public void setStock(String productnumber, int quantity, String locationcode) {
+        Optional<Product> result = productRepository.findById(productnumber);
+        if (result.isPresent()) {
+            Product product = result.get();
+            Stock stock = new Stock(quantity, locationcode);
+            product.setStock(stock);
+            productRepository.save(product);
+        }
+    }
+
+    @Override
+    public List<Product> getAll() {
+        return this.productRepository.findAll();
+    }
 }
